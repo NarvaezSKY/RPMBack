@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-export const conection=mongoose.connect('mongodb+srv://Cristian:Cristian@clustertal.nubhn3b.mongodb.net/?retryWrites=true&w=majority')
+export const conection=mongoose.connect('mongodb+srv://Cristian:1234@clustertal.nubhn3b.mongodb.net/RutasParaMoteros')
 .then(()=>{
     console.log('db is connected succesfully')
 })
