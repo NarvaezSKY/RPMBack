@@ -10,7 +10,7 @@ export const getAllUsers = async (req, res) => {
     const todos = await UserSchema.find();
     res.json(todos);
   } catch (error) {
-    res.json({ message: "error al encontrar user" });
+    res.json({ message: `ERROR! ${error}` });
   }
 };
 
@@ -31,7 +31,7 @@ export const RegisterUser = async (req, res) => {
     const userfound = await UserSchema.findOne({ email });
 
     if (userfound) {
-      return res.json({ message: "el correo ya está en uso" });
+      return res.json({ message: `El correo ${userfound} ya está en uso.` });
     }
 
     const passwordHash = await bcrypt.hash(password, 10);
@@ -69,7 +69,7 @@ export const RegisterUser = async (req, res) => {
     });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Error del servidor" });
+    res.status(500).json({ message: `SERVER INTERNAL ERROR! ${error}` });
   }
 };
 
@@ -81,6 +81,7 @@ export const Login = async (req, res) => {
     if (!Userfound) return res.json({ message: "user not found" });
     const coincide = await bcrypt.compare(password, Userfound.password);
     if (!coincide) return res.json({ message: "incorrect password" });
+
     const token = await createAccessToken({ id: Userfound._id });
     res.cookie("token", token);
     res.json({
@@ -90,7 +91,7 @@ export const Login = async (req, res) => {
       updatedAt: Userfound.updatedAt,
     });
   } catch (error) {
-    res.status.json({ message: error.message });
+    res.status(500).json({ message: `LOGIN ERROR! ${error}` });
   }
 };
 
@@ -98,7 +99,7 @@ export const logout = (req, res) => {
   res.cookie("token", "", {
     expires: new Date(0),
   });
-  return res.sendStatus(200);
+  return res.status(200).json({message:`Cerraste sesión satisfactoriamente. Mamaguebo.`});
 };
 
 export const Profile = async (req, res) => {
