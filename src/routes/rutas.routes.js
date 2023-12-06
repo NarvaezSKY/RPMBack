@@ -4,8 +4,10 @@ const router= Router();
 import {registroRuta, obtenRutas, eliminaRutas  } from "../controllers/ruta.controllers.js";
 
 
-router.get('/', obtenRutas)
-router.post('/', registroRuta)
+import { validate } from "../middlewares/validateToke.js";
+
+router.get('/', validate,obtenRutas)
+router.post('/' , validate,registroRuta)
 router.delete('/:id',eliminaRutas )
 
 

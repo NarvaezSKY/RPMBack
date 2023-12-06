@@ -67,4 +67,4 @@ const usuarioShema = new Schema({
 
 })
 
-export default model('user', usuarioShema);
+export default model('usuarios', usuarioShema);

@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import mongoose, { Schema, model } from "mongoose";
 
 
 //la Geo (Geolocalizacion) es otro tipo de dato luego se cambia por que se llena con mapas
@@ -47,8 +47,13 @@ const rutaShema = new Schema({
         default: 'location_final',
         required: true
     },
-    kilometros_rut:{type: Number},
-    
+    kilometros_rut: { type: Number },
+    usuario: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'usuarios',
+        required: true
+    }
+
 
 })
 
