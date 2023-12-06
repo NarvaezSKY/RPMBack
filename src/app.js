@@ -1,15 +1,23 @@
 import express from 'express'
 import cors from 'cors'
 import morgan from 'morgan'
-import {  connectDb} from "./db/db.js";
+//rutas
+import rutasUsuarios from "./routes/usuarios.routes.js";
+import rutasRuta from "./routes/rutas.routes.js";
+import cookieParser from 'cookie-parser';
 
-connectDb();
 
-const app=express()
+const app = express()
 app.use(cors())
 app.use(morgan('dev'))
 app.use(express.json())
+app.use(cookieParser())
 
-app.listen(3000,()=>{
-console.log(`la wea fome corre en el 3000`)
-})
+
+//routes
+app.use('/', rutasUsuarios)
+app.use('/rutas', rutasRuta)
+
+
+export default app;
+
